@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+{% block title %}Dashboard | Employee Portal{% endblock %}
+{% block content %}
+<section class="welcome">
+    <p class="eyebrow">EMPLOYEE WORKSPACE</p>
+    <h1>Welcome, {{ employee.name }}</h1>
+    <p>Manage your employee information in one place.</p>
+</section>
+
+<h2 class="section-title">Employee Services</h2>
+
+<div class="card-grid">
+    <a class="service-card" href="/profile">
+        <h3>My Profile</h3>
+        <p>View your employee information.</p>
+    </a>
+    <a class="service-card" href="/leave">
+        <h3>Leave Management</h3>
+        <p>Submit and review leave requests.</p>
+    </a>
+    <a class="service-card" href="/attendance">
+        <h3>Attendance</h3>
+        <p>Check your attendance details.</p>
+    </a>
+    <a class="service-card" href="/requests">
+        <h3>My Requests</h3>
+        <p>Track your submitted requests.</p>
+    </a>
+</div>
+{% endblock %}

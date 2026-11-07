@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+{% block title %}My Requests{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <h1>My Requests</h1>
+    <p>Track your submitted requests.</p>
+</div>
+<section class="panel">
+    <h2>Request History</h2>
+    <table>
+        <tr><th>Request</th><th>Date</th><th>Status</th></tr>
+        {% for item in requests_data %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}

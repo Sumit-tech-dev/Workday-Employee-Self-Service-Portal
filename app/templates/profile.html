@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <h1>My Profile</h1>
+    <p>Your employee information.</p>
+</div>
+<section class="panel">
+    <h2>{{ employee.name }}</h2>
+    <p>Employee ID: {{ employee.employee_id }}</p>
+    <p>Department: {{ employee.department }}</p>
+    <p>Role: {{ employee.role }}</p>
+    <p>Email: {{ employee.email }}</p>
+    <p>Location: {{ employee.location }}</p>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+
+{% extends "base.html" %}
+{% block title %}Attendance{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <h1>Attendance</h1>
+    <p>Recent attendance details.</p>
+</div>
+<section class="panel">
+    <h2>Attendance History</h2>
+    <table>
+        <tr><th>Date</th><th>Check In</th><th>Check Out</th><th>Status</th></tr>
+        {% for item in attendance_data %}
+        <tr>
+            <td>{{ item.date }}</td>
+            <td>{{ item.check_in }}</td>
+            <td>{{ item.check_out }}</td>
+            <td>{{ item.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}
