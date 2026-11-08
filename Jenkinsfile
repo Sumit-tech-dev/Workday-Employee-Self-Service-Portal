@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -34,12 +33,6 @@ pipeline {
         success {
             echo 'CI Pipeline completed successfully!'
         }
-        failure {
-            echo 'CI Pipeline failed. Please check the logs.'
-        }
-    }
-}
-
         failure {
             echo 'CI Pipeline failed. Please check the logs.'
         }
