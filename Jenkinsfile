@@ -53,30 +53,32 @@ pipeline {
                 '''
             }
         }
+
+        stage('ECR Push') {
+            agent {
+                label 'docker-agent'
+            }
+            steps {
+                sh '''
+                    set -e
+
+                    AWS_REGION="us-east-1"
+                    AWS_ACCOUNT_ID="732088326553"
+                    ECR_REPOSITORY="workday-portal"
+                    IMAGE_TAG="${BUILD_NUMBER}"
+
+                    ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+
+                    aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
+
+                    docker tag "workday-portal:${IMAGE_TAG}" "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+
+                    docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+                '''
+            }
+        }
     }
-stage('ECR Push') {
-    agent {
-        label 'docker-agent'
-    }
-    steps {
-        sh '''
-            set -e
 
-            AWS_REGION="us-east-1"
-            AWS_ACCOUNT_ID="732088326553"
-            ECR_REPOSITORY="workday-portal"
-            IMAGE_TAG="${BUILD_NUMBER}"
-
-            ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-
-            aws ecr get-login-password --region "$AWS_REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY"
-
-            docker tag "workday-portal:${IMAGE_TAG}" "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
-
-            docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
-        '''
-    }
-}
     post {
         success {
             echo 'CI/CD Pipeline completed successfully!'
