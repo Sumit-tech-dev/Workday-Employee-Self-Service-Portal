@@ -38,6 +38,21 @@ pipeline {
                 sh 'docker images workday-portal'
             }
         }
+
+        stage('Trivy Security Scan') {
+            agent {
+                label 'docker-agent'
+            }
+            steps {
+                sh '''
+                    trivy image \
+                    --severity HIGH,CRITICAL \
+                    --ignore-unfixed \
+                    --exit-code 1 \
+                    workday-portal:${BUILD_NUMBER}
+                '''
+            }
+        }
     }
 
     post {
