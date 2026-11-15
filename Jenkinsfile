@@ -38,3 +38,14 @@ pipeline {
         }
     }
 }
+
+stage('Docker Build') {
+    agent {
+        label 'docker-agent'
+    }
+    steps {
+        checkout scm
+        sh 'docker build -t workday-portal:${BUILD_NUMBER} .'
+        sh 'docker images workday-portal'
+    }
+}
