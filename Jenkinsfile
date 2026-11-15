@@ -27,25 +27,25 @@ pipeline {
                 '''
             }
         }
+
+        stage('Docker Build') {
+            agent {
+                label 'docker-agent'
+            }
+            steps {
+                checkout scm
+                sh 'docker build -t workday-portal:${BUILD_NUMBER} .'
+                sh 'docker images workday-portal'
+            }
+        }
     }
 
     post {
         success {
-            echo 'CI Pipeline completed successfully!'
+            echo 'CI/CD Pipeline completed successfully!'
         }
         failure {
-            echo 'CI Pipeline failed. Please check the logs.'
+            echo 'CI/CD Pipeline failed. Please check the logs.'
         }
-    }
-}
-
-stage('Docker Build') {
-    agent {
-        label 'docker-agent'
-    }
-    steps {
-        checkout scm
-        sh 'docker build -t workday-portal:${BUILD_NUMBER} .'
-        sh 'docker images workday-portal'
     }
 }
